@@ -1,9 +1,9 @@
 import {SET_GUESSES, SET_FEEDBACK, SET_AURALSTATUS} from '../actions'
 
 const initialState = {
-  guesses = [1, 23, 88],
-  feedback = 'feedback!',
-  auralStatus = 'Here is the status of the game:'
+  guesses: [1, 23, 88],
+  feedback: 'feedback!',
+  auralStatus: 'Here is the status of the game:'
 }
 
 export const gameReducer = (state=initialState, action) => {
