@@ -1,11 +1,14 @@
 import React from 'react';
+import {connect} from 'react-redux'
 
 import Header from './header';
 import GuessSection from './guess-section';
 import StatusSection from './status-section';
 import InfoSection from './info-section';
 
-export default class Game extends React.Component {
+export class Game extends React.Component {
+
+/*
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +18,7 @@ export default class Game extends React.Component {
       correctAnswer: Math.round(Math.random() * 100) + 1
     };
   }
+*/
 
   restartGame() {
     this.setState({
@@ -24,6 +28,11 @@ export default class Game extends React.Component {
       correctAnswer: Math.floor(Math.random() * 100) + 1
     });
   }
+
+restartGame() {
+  this.props.dispatch(setGuesses())
+}
+
 
   makeGuess(guess) {
     guess = parseInt(guess, 10);
@@ -92,7 +101,7 @@ export default class Game extends React.Component {
             guessCount={guessCount}
             onMakeGuess={guess => this.makeGuess(guess)}
           />
-          <StatusSection guesses={guesses} 
+          <StatusSection guesses={guesses}
             auralStatus={auralStatus}
           />
           <InfoSection />
@@ -101,3 +110,19 @@ export default class Game extends React.Component {
     );
   }
 }
+
+Game.defaultProps = {
+  guesses: [],
+  feedback: '',
+  auralStatus: '',
+  correctAnswer: 0
+}
+
+export const mapStateToProps = state => ({
+  guesses: state.guesses,
+  feedback: state.feedback,
+  auralStatus: state.auralStatus,
+  correctAnswer: Math.floor(Math.random() * 100) + 1
+})
+
+export default connect(mapStateToProps)(Game)
