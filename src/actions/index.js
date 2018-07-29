@@ -3,9 +3,9 @@ export const setAuralStatus = () => ({
   type: SET_AURALSTATUS
 })
 
-export const RESTART_GAME = 'RESTART_GAME';
-export const restartGame = correctAnswer => ({
-    type: RESTART_GAME,
+export const RESTART = 'RESTART';
+export const restart = correctAnswer => ({
+    type: RESTART,
     correctAnswer
 })
 

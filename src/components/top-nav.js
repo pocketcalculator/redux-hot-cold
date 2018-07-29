@@ -1,14 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-import './top-nav.css';
+import { connect } from 'react-redux'
+import { setAuralStatus, restart } from '../actions'
 
-export default function TopNav(props) {
+import './top-nav.css'
+
+export function TopNav(props) {
   return (
     <nav>
       <ul className="clearfix">
         <li>
-          <a 
-            href="#what" 
+          <a
+            href="#what"
             className="what"
             aria-label="How to play"
           >
@@ -20,7 +23,7 @@ export default function TopNav(props) {
             href="#feedback"
             className="new"
             aria-label="Start a new game"
-            onClick={() => props.onRestartGame()}
+            onClick={() => props.dispatch(restart(Math.floor(Math.random() * 100) + 1))}
           >
             + New Game
           </a>
@@ -28,15 +31,17 @@ export default function TopNav(props) {
         <li>
           <a
             href="#get-status"
-            /* the `visuallyhidden` class hides an element 
+            /* the `visuallyhidden` class hides an element
             while leaving it available to screen reader users  */
             className="visuallyhidden focusable status-link"
-            onClick={() => props.onGenerateAuralUpdate()}
+            onClick={() => props.dispatch(setAuralStatus())}
           >
             Hear state of game
           </a>
         </li>
       </ul>
     </nav>
-  );
+  )
 }
+
+export default connect()(TopNav)
