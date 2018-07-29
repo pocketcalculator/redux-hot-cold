@@ -1,6 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import './guess-form.css';
+import { connect } from 'react-redux'
+
+import './guess-form.css'
 
 export default class GuessForm extends React.Component {
   onSubmit(event) {
@@ -29,15 +31,19 @@ export default class GuessForm extends React.Component {
           ref={input => (this.input = input)}
           required
         />
-        <button 
+        <button
           type="submit"
           name="submit"
-          id="guessButton" 
+          id="guessButton"
           className="button"
         >
           Guess
         </button>
       </form>
-    );
+    )
   }
 }
+
+const mapStateToProps = state => ({guessCount: state.guesses.length})
+
+export default connect(mapStateToProps)(GuessCount)

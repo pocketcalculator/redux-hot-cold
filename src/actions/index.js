@@ -1,17 +1,16 @@
-export const SET_GUESSES = 'SET_GUESSES'
-export const setGuesses = guesses => ({
-  type: SET_GUESSES,
-  guesses
-})
-
-export const SET_FEEDBACK = 'SET_FEEDBACK'
-export const setFeedback = feedback => ({
-  type: SET_FEEDBACK,
-  feedback
-})
-
 export const SET_AURALSTATUS = 'SET_AURALSTATUS'
-export const setAuralStatus = auralStatus => ({
-  type: SET_AURALSTATUS,
-  auralStatus
+export const setAuralStatus = () => ({
+  type: SET_AURALSTATUS
+})
+
+export const RESTART_GAME = 'RESTART_GAME';
+export const restartGame = correctAnswer => ({
+    type: RESTART_GAME,
+    correctAnswer
+})
+
+export const MAKE_GUESS = 'MAKE_GUESS';
+export const makeGuess = guess => ({
+    type: MAKE_GUESS,
+    guess
 })

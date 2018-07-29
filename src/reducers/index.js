@@ -1,23 +1,51 @@
-import {SET_GUESSES, SET_FEEDBACK, SET_AURALSTATUS} from '../actions'
+import {
+  RESTART,
+  MAKE_GUESS,
+  SET_AURALSTATUS
+} from '../actions'
 
 const initialState = {
-  guesses: [1, 23, 88],
+  guesses: [],
   feedback: 'feedback!',
   auralStatus: 'Here is the status of the game:'
+  correctAnswer: Math.round(Math.random() * 100) + 1
 }
 
-export const gameReducer = (state=initialState, action) => {
-  if (action.type === SET_GUESSES) {
+export const gameReducer = (state = initialState, action) => {
+  if (action.type === RESTART) {
     return Object.assign({}, state, {
-      guesses: action.guesses
+      guesses: [],
+      feedback: 'Make your guess!',
+      auralStatus: '',
+      correctAnswer: action.correctAnswer
     })
-  }
-  else if (action.type === SET_FEEDBACK) {
+  } else if (action.type === MAKE_GUESS) {
+    let guess, feedback
+    guess = parseInt(action.guess, 10)
+    if (isNaN(guess)) {
+      feedback = 'Please enter a valid number'
+      return Object.assign({}, state, {
+        guesses: [...state.guesses, guess],
+        feedback
+      })
+    }
+    const difference = Math.abs(guess - state.correctAnswer)
+    if (difference >= 50) {
+      feedback = 'You\'re Ice Cold...'
+    } else if (difference >= 30) {
+      feedback = 'You\'re Cold...'
+    } else if (difference >= 10) {
+      feedback = 'You\'re Warm.'
+    } else if (difference >= 1) {
+      feedback = 'You\'re Hot!';
+    } else {
+      feedback = 'You got it!'
+    }
     return Object.assign({}, state, {
-      guesses: action.feedback
+      guesses: [...state.guesses, guess],
+      feedback
     })
-  }
-  else if (action.type === SET_AURALSTATUS) {
+  } else if (action.type === SET_AURALSTATUS) {
     return Object.assign({}, state, {
       auralStatus: action.auralStatus
     })
